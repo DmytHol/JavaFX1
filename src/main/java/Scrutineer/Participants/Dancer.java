@@ -2,9 +2,11 @@ package Scrutineer.Participants;
 import Scrutineer.Utils.Measurable;
 
 
-public class Dancer extends Person implements Measurable{
+public class Dancer implements Measurable {
     private int dancerId;
     private int age;
+    private String fName;
+    private String lName;
     private String danceLevel;
 
 
@@ -13,13 +15,23 @@ public class Dancer extends Person implements Measurable{
     }
 
     public Dancer(String fName, String lName, int age, String danceLevel) {
-        super(fName, lName);
+        this.fName = fName;
+        this.lName = lName;
         this.age = age;
         this.danceLevel = danceLevel;
     }
     
     public int getAge() {
         return age;
+    }
+
+    public String getFName() {
+        return fName;
+    }
+
+
+    public String getLName() {
+        return lName;
     }
 
     public void setAge(int age) {
@@ -40,7 +52,7 @@ public class Dancer extends Person implements Measurable{
 
     @Override
     public String toString(){
-        return "Age: " + this.getAge() + " Name: " + this.getfName() + " " + this.getlName() + " Dance level: " + this.getDanceLevel();
+        return "Age: " + this.getAge() + " Name: " + this.getFName() + " " + this.getLName() + " Dance level: " + this.getDanceLevel();
     }
 
 	@Override
@@ -53,5 +65,14 @@ public class Dancer extends Person implements Measurable{
         this.dancerId = dancerId;
 
     }
+
+    public void setFName(String fname) {
+        this.fName = fname;
+    }
+
+    public void setLName(String lname) {
+        this.lName = lname;
+    }
+
 
 }
