@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 
 
 import java.util.Date;
+import java.util.List;
 
 
 public class DancerView extends BorderPane {
@@ -23,7 +24,7 @@ public class DancerView extends BorderPane {
     private TextField txtId;
     private TextField fNameTextField;
     private TextField lNameTextField;
-    private TextField danceLevelTextField;
+    private ComboBox danceLevelComboBox;
     private Button btnAddNew;
     private Button btnDelete;
     private Button btnUpdate;
@@ -71,16 +72,16 @@ public class DancerView extends BorderPane {
         lNameTextField = new TextField();
         lNameTextField.setPrefWidth(120);
         lNameTextField.setMaxWidth(120);
-        danceLevelTextField = new TextField();
-        danceLevelTextField.setPrefWidth(120);
-        danceLevelTextField.setMaxWidth(120);
+        danceLevelComboBox = new ComboBox<>();
+        danceLevelComboBox.setPrefWidth(120);
+        danceLevelComboBox.setMaxWidth(120);
 
         // Add labels and text fields to GridPane
         gridPaneBottom.add(txtId, 1, 0);
         gridPaneBottom.add(fNameTextField, 3, 0);
         gridPaneBottom.add(lNameTextField, 3, 1);
         //gridPaneBottom.add(ageTextField, 5, 0);
-        gridPaneBottom.add(danceLevelTextField, 5, 1);
+        gridPaneBottom.add(danceLevelComboBox, 5, 1);
         gridPaneBottom.setMaxHeight(200);
 
         // Set layout components
@@ -125,8 +126,12 @@ public class DancerView extends BorderPane {
         return dateOfBirthPicker;
     }
 
-    public TextField getDanceLevelTextField() {
-        return danceLevelTextField;
+    public ComboBox<String> getDanceLevelComboBox() {
+        return danceLevelComboBox;
+    }
+
+    public void setDanceLevelOptions(List<String> danceLevels) {
+        danceLevelComboBox.getItems().addAll(danceLevels);
     }
 
     // Format TableView with editable columns

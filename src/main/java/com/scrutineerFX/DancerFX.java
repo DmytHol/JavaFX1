@@ -13,7 +13,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 public class DancerFX extends Application {
@@ -43,7 +45,7 @@ public class DancerFX extends Application {
                     }else {
                         view.getDateOfBirthPicker().setValue(null);
                     }
-                    view.getDanceLevelTextField().setText(d.getDanceLevel());
+                    view.getDanceLevelComboBox().setValue(d.getDanceLevel());
                 }
             }
         });
@@ -72,24 +74,27 @@ public class DancerFX extends Application {
                 view.getfName().setText("");
                 view.getlName().setText("");
                 view.getDateOfBirthPicker().setValue(null);
-                view.getDanceLevelTextField().setText("");
+                view.getDanceLevelComboBox().setValue(null);
             }
         });
 
+        // Set dance level options
+        List<String> danceLevels = Arrays.asList("Beginner", "Intermediate", "Advanced", "Bronze", "Silver", "Gold", "Novice", "Pre-Champ", "Champ");
+        view.getDanceLevelComboBox().getItems().addAll(danceLevels);
         // Handle add new dancer button action
         view.getBtnAddNew().setOnAction(e -> {
             Dancer d = new Dancer();
             d.setFName(view.getfName().getText());
             d.setLName(view.getlName().getText());
             d.setDateOfBirth(java.sql.Date.valueOf(view.getDateOfBirthPicker().getValue()));
-            d.setDanceLevel(view.getDanceLevelTextField().getText());
+            d.setDanceLevel(String.valueOf(view.getDanceLevelComboBox()));
             model.add(d);
             view.getTblDancer().setItems(FXCollections.observableArrayList(model.findAll()));
             view.getTxtId().setText("");
             view.getfName().setText("");
             view.getlName().setText("");
             view.getDateOfBirthPicker().setValue(null);
-            view.getDanceLevelTextField().setText("");
+            view.getDanceLevelComboBox().setValue(null);
         });
 
         // Handle update dancer button action
@@ -99,14 +104,14 @@ public class DancerFX extends Application {
             d.setFName(view.getfName().getText());
             d.setLName(view.getlName().getText());
             d.setDateOfBirth(java.sql.Date.valueOf(view.getDateOfBirthPicker().getValue()));
-            d.setDanceLevel(view.getDanceLevelTextField().getText());
+            d.setDanceLevel(view.getDanceLevelComboBox().getValue());
             model.update(d);
             view.getTblDancer().setItems(FXCollections.observableArrayList(model.findAll()));
             view.getTxtId().setText("");
             view.getfName().setText("");
             view.getlName().setText("");
             view.getDateOfBirthPicker().setValue(null);
-            view.getDanceLevelTextField().setText("");
+            view.getDanceLevelComboBox().setValue(null);
         });
     }
     public static void main(String[] args) {
