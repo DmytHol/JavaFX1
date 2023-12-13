@@ -1,4 +1,4 @@
-package com.example.scrutineerFX;
+package com.scrutineerFX;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

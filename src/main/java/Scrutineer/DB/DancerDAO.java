@@ -14,9 +14,7 @@ public class DancerDAO {
             d.setDancerId(rs.getInt("dancer_id"));
             d.setFName(rs.getString("fname"));
             d.setLName(rs.getString("lname"));
-            Date birthDate = rs.getDate("birthdate");
-            int age = AgeCalculator.calculateAge(birthDate);
-            d.setAge(age);
+            d.setDateOfBirth(rs.getDate("birthdate"));
             d.setDanceLevel(rs.getString("dance_level"));
 
         } catch (SQLException e) {
@@ -67,15 +65,19 @@ public class DancerDAO {
         boolean res = false;
         if(dancer.getFName() != ""){
             try {
-                String sql = "INSERT INTO Dancer (fname, lname, birthdate, dance_level) VALUES (?,?,?,?)";
+                String sql = "INSERT INTO Dancer (fname, lname, birthdate, dance_level) VALUES (?, ?, ?, ?)";
                 Connection connection = DbConnection.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 stmt.setString(1, dancer.getFName());
                 stmt.setString(2, dancer.getLName());
-                //stmt.setDate(3, new java.sql.Date(dancer.getBirthDate().getTime()));
+                stmt.setDate(3, new java.sql.Date(dancer.getDateOfBirth().getTime()));
                 stmt.setString(4, dancer.getDanceLevel());
-                stmt.executeUpdate();
-                res = true;
+                int rowsAffected = stmt.executeUpdate();
+
+                if(rowsAffected > 0){
+                    res = true;
+                }
+
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -84,20 +86,24 @@ public class DancerDAO {
         return res;
     }
 
-    public boolean update(Dancer dancer){
+    public boolean update(Dancer dancer) {
         boolean res = false;
-        if(dancer.getFName() != ""){
+        if (!dancer.getFName().equals("")) {
             try {
                 String sql = "UPDATE Dancer SET fname=?, lname=?, birthdate=?, dance_level=? WHERE dancer_id=?";
                 Connection connection = DbConnection.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 stmt.setString(1, dancer.getFName());
                 stmt.setString(2, dancer.getLName());
-                //stmt.setDate(3, new java.sql.Date(dancer.getBirthDate().getTime()));
+                stmt.setDate(3, new java.sql.Date(dancer.getDateOfBirth().getTime()));
                 stmt.setString(4, dancer.getDanceLevel());
                 stmt.setInt(5, dancer.getDancerId());
-                stmt.executeUpdate();
-                res = true;
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    res = true;
+                }
+
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -105,6 +111,7 @@ public class DancerDAO {
         }
         return res;
     }
+
 
     public Dancer find(int id) {
         try {

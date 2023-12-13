@@ -14,7 +14,7 @@ CREATE TABLE couple (
 );
 
 CREATE TABLE dancer (
-    dancer_id INT PRIMARY KEY,
+    dancer_id INT PRIMARY KEY AUTO_INCREMENT,
     fname VARCHAR(30),
     lname VARCHAR(30),
     birthdate DATE,

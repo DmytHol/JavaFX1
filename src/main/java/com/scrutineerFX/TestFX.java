@@ -1,4 +1,4 @@
-package com.example.scrutineerFX;
+package com.scrutineerFX;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

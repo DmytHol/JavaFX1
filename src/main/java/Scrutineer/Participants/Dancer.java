@@ -1,28 +1,34 @@
 package Scrutineer.Participants;
 import Scrutineer.Utils.Measurable;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Date;
+
 
 public class Dancer implements Measurable {
     private int dancerId;
-    private int age;
     private String fName;
     private String lName;
     private String danceLevel;
 
+    private Date dateOfBirth;
+
 
     // Constructors
     public Dancer() {
+        this.dateOfBirth = new Date(); // or provide a default value
     }
 
-    public Dancer(String fName, String lName, int age, String danceLevel) {
+    public Dancer(String fName, String lName, Date dateOfBirth, String danceLevel) {
         this.fName = fName;
         this.lName = lName;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.danceLevel = danceLevel;
     }
-    
+
     public int getAge() {
-        return age;
+        return calculateAge((java.sql.Date) this.dateOfBirth);
     }
 
     public String getFName() {
@@ -34,14 +40,10 @@ public class Dancer implements Measurable {
         return lName;
     }
 
-    public void setAge(int age) {
-		this.age = age;
-	}
-
     public int getDancerId() {
         return dancerId;
     }
-    
+
     public String getDanceLevel() {
         return danceLevel;
     }
@@ -55,11 +57,10 @@ public class Dancer implements Measurable {
         return "Age: " + this.getAge() + " Name: " + this.getFName() + " " + this.getLName() + " Dance level: " + this.getDanceLevel();
     }
 
-	@Override
-	public int getMeasure() {
-		return this.age;
-	}
-
+    @Override
+    public int getMeasure() {
+        return calculateAge((java.sql.Date) this.dateOfBirth);
+    }
 
     public void setDancerId(int dancerId) {
         this.dancerId = dancerId;
@@ -72,6 +73,27 @@ public class Dancer implements Measurable {
 
     public void setLName(String lname) {
         this.lName = lname;
+    }
+
+    public static int calculateAge(java.sql.Date birthDate) {
+        if (birthDate == null) {
+            return 0; // or handle as appropriate
+        }
+        // Convert java.sql.Date to java.time.LocalDate
+        LocalDate birthLocalDate = birthDate.toLocalDate();
+        // Get current date
+        LocalDate currentDate = LocalDate.now();
+        // Calculate age
+        Period period = Period.between(birthLocalDate, currentDate);
+        return period.getYears();
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
 
