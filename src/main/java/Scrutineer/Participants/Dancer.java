@@ -28,7 +28,7 @@ public class Dancer implements Measurable {
     }
 
     public int getAge() {
-        return calculateAge((java.sql.Date) this.dateOfBirth);
+        return getAge((java.sql.Date) this.dateOfBirth);
     }
 
     public String getFName() {
@@ -59,7 +59,7 @@ public class Dancer implements Measurable {
 
     @Override
     public int getMeasure() {
-        return calculateAge((java.sql.Date) this.dateOfBirth);
+        return getAge((java.sql.Date) this.dateOfBirth);
     }
 
     public void setDancerId(int dancerId) {
@@ -75,7 +75,7 @@ public class Dancer implements Measurable {
         this.lName = lname;
     }
 
-    public static int calculateAge(java.sql.Date birthDate) {
+    public static int getAge(java.sql.Date birthDate) {
         if (birthDate == null) {
             return 0; // or handle as appropriate
         }

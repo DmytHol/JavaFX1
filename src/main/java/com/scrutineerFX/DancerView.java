@@ -23,8 +23,6 @@ public class DancerView extends BorderPane {
     private TextField txtId;
     private TextField fNameTextField;
     private TextField lNameTextField;
-    //private TextField ageTextField;
-
     private TextField danceLevelTextField;
     private Button btnAddNew;
     private Button btnDelete;
@@ -73,9 +71,6 @@ public class DancerView extends BorderPane {
         lNameTextField = new TextField();
         lNameTextField.setPrefWidth(120);
         lNameTextField.setMaxWidth(120);
-//        ageTextField = new TextField();
-//        ageTextField.setPrefWidth(120);
-//        ageTextField.setMaxWidth(120);
         danceLevelTextField = new TextField();
         danceLevelTextField.setPrefWidth(120);
         danceLevelTextField.setMaxWidth(120);
@@ -210,7 +205,13 @@ public class DancerView extends BorderPane {
             }
         });
 
-        tblDancer.getColumns().addAll(idCol, fNameCol, lNameCol, dateOfBirthCol, danceLevelCol);
+        // Create column for Age
+        TableColumn<Dancer, Integer> ageCol = new TableColumn<>("Age");
+        ageCol.setMinWidth(50);
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+
+
+        tblDancer.getColumns().addAll(idCol, fNameCol, lNameCol, dateOfBirthCol, danceLevelCol, ageCol);
     }
 
 

@@ -48,30 +48,35 @@ public class DancerFX extends Application {
             }
         });
 
+        // Create the scene and add it to the stage
         Scene scene = new Scene(view, 650, 400, true);
         primaryStage.setScene(scene);
         primaryStage.setTitle("DancerFX Application");
         primaryStage.show();
 
+        // Handle delete button action
         view.getBtnDelete().setOnAction(e -> {
             int id = Integer.parseInt(view.getTxtId().getText());
             Dancer d = model.find(id);
 
+            // Display confirmation dialog before deleting
             String selection = d.getFName() + " " + d.getLName();
             Alert alert = new Alert(AlertType.WARNING, "Delete " + selection + " ?", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
 
+            // Delete dancer if user confirms and clear fields
             if (alert.getResult() == ButtonType.YES) {
                 model.delete(d);
                 view.getTblDancer().setItems(FXCollections.observableArrayList(model.findAll()));
                 view.getTxtId().setText("");
                 view.getfName().setText("");
                 view.getlName().setText("");
-                //view.getDateOfBirthPicker().setValue(d.getDateOfBirth().toLocalDate());
+                view.getDateOfBirthPicker().setValue(null);
                 view.getDanceLevelTextField().setText("");
             }
         });
 
+        // Handle add new dancer button action
         view.getBtnAddNew().setOnAction(e -> {
             Dancer d = new Dancer();
             d.setFName(view.getfName().getText());
@@ -83,24 +88,23 @@ public class DancerFX extends Application {
             view.getTxtId().setText("");
             view.getfName().setText("");
             view.getlName().setText("");
-            //view.getDateOfBirthPicker().setValue(d.getDateOfBirth().toLocalDate());
+            view.getDateOfBirthPicker().setValue(null);
             view.getDanceLevelTextField().setText("");
         });
 
+        // Handle update dancer button action
         view.getBtnUpdate().setOnAction(e -> {
             Dancer d = new Dancer();
             d.setDancerId(Integer.parseInt(view.getTxtId().getText()));
             d.setFName(view.getfName().getText());
             d.setLName(view.getlName().getText());
             d.setDateOfBirth(java.sql.Date.valueOf(view.getDateOfBirthPicker().getValue()));
-            //d.setAge(Integer.parseInt(view.getAgeTextField().getText()));
             d.setDanceLevel(view.getDanceLevelTextField().getText());
             model.update(d);
             view.getTblDancer().setItems(FXCollections.observableArrayList(model.findAll()));
             view.getTxtId().setText("");
             view.getfName().setText("");
             view.getlName().setText("");
-            //view.getAgeTextField().setText("");
             view.getDateOfBirthPicker().setValue(null);
             view.getDanceLevelTextField().setText("");
         });
