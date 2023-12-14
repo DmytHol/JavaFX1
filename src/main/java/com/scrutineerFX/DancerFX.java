@@ -87,7 +87,7 @@ public class DancerFX extends Application {
             d.setFName(view.getfName().getText());
             d.setLName(view.getlName().getText());
             d.setDateOfBirth(java.sql.Date.valueOf(view.getDateOfBirthPicker().getValue()));
-            d.setDanceLevel(String.valueOf(view.getDanceLevelComboBox()));
+            d.setDanceLevel(view.getDanceLevelComboBox().getValue());
             model.add(d);
             view.getTblDancer().setItems(FXCollections.observableArrayList(model.findAll()));
             view.getTxtId().setText("");

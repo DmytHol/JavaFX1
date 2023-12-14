@@ -63,7 +63,7 @@ public class DancerDAO {
     }
     public boolean add(Dancer dancer){
         boolean res = false;
-        if(dancer.getFName() != ""){
+        if(!dancer.getFName().isEmpty()){
             try {
                 String sql = "INSERT INTO Dancer (fname, lname, birthdate, dance_level) VALUES (?, ?, ?, ?)";
                 Connection connection = DbConnection.getConnection();
